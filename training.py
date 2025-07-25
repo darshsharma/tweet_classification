@@ -8,7 +8,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report
 from tqdm import tqdm
 
-df = pd.read_csv("Q2_20230202_majority.csv")
+df = pd.read_csv("/content/tweet_classification/Q2_20230202_majority.csv")
 df = df[df["label_true"].notnull()]  # Only use labeled data
 
 train_df, val_df = train_test_split(df, test_size=0.1, random_state=42, stratify=df["label_true"])
@@ -33,6 +33,20 @@ for df in [train_df, val_df]:
 
 train_dataset = Dataset.from_pandas(train_df[["text", "labels"]])
 val_dataset = Dataset.from_pandas(val_df[["text", "labels"]])
+
+def preprocess_function(examples):
+    model_inputs = tokenizer(
+        examples["text"], max_length=512, truncation=True, padding="max_length"
+    )
+    with tokenizer.as_target_tokenizer():
+        labels = tokenizer(
+            examples["labels"], max_length=10, truncation=True, padding="max_length"
+        )
+    model_inputs["labels"] = labels["input_ids"]
+    return model_inputs
+
+train_dataset = train_dataset.map(preprocess_function, batched=True)
+val_dataset = val_dataset.map(preprocess_function, batched=True)
 
 # 2. Load model and tokenizer
 model_id = "google/flan-t5-large"
@@ -69,10 +83,7 @@ trainer = SFTTrainer(
     train_dataset=train_dataset,
     eval_dataset=val_dataset,
     args=training_args,
-    tokenizer=tokenizer,
-    peft_config=lora_config,
-    dataset_text_field="text",
-    max_seq_length=512
+    peft_config=lora_config
 )
 
 trainer.train()
