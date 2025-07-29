@@ -1,0 +1,43 @@
+
+DATASET PREPARATION SUMMARY REPORT
+==================================
+
+Dataset Information:
+- Original file: Q2_20230202_majority.csv
+- Total samples: 5751
+- Features: 8
+- Classes: 3
+
+Class Distribution:
+- in-favor: 2907 samples (50.55%)
+- against: 1804 samples (31.37%)
+- neutral-or-unclear: 1040 samples (18.08%)
+
+Train/Test Split:
+- Train samples: 4600 (80.0%)
+- Test samples: 1151 (20.0%)
+- Split ratio: 80% train / 20% test
+
+Data Quality:
+- Missing values handled: Yes
+- Empty tweets removed: Yes
+- Labels encoded: Yes
+- Stratified split: Yes (maintains class balance)
+
+Output Files:
+- train_data.csv: Training dataset
+- test_data.csv: Test dataset  
+- label_mapping.csv: Label encoding mapping
+- dataset_analysis.png: Visualization of distributions
+
+Preprocessing Steps:
+1. Loaded original CSV file
+2. Removed rows with missing labels
+3. Cleaned tweet text (removed leading/trailing whitespace)
+4. Removed empty tweets
+5. Encoded categorical labels
+6. Performed stratified train/test split (80/20)
+7. Verified class balance maintained in both splits
+8. Saved processed datasets
+
+The dataset is now ready for training and testing with proper class balance maintained.

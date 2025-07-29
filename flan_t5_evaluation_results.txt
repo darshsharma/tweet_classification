@@ -1,0 +1,28 @@
+FLAN-T5-LARGE EVALUATION RESULTS
+==================================================
+
+Model: google/flan-t5-large
+Device: cpu
+Total samples: 1151
+
+Accuracy: 0.5882
+F1 Score (Macro): 0.4799
+F1 Score (Weighted): 0.5568
+Average Processing Time: 0.43 seconds
+Total Processing Time: 491.22 seconds
+
+Per-class F1 Scores:
+  in-favor: 0.6953
+  against: 0.5320
+  neutral-or-unclear: 0.2125
+
+Detailed Classification Report:
+                    precision    recall  f1-score   support
+
+          in-favor       0.55      0.52      0.53       361
+           against       0.62      0.79      0.70       582
+neutral-or-unclear       0.45      0.14      0.21       208
+
+          accuracy                           0.59      1151
+         macro avg       0.54      0.48      0.48      1151
+      weighted avg       0.57      0.59      0.56      1151
